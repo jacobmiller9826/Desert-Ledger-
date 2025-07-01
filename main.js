@@ -8,8 +8,8 @@ document.getElementById('connectWallet').addEventListener('click', async () => {
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       walletAddress = accounts[0];
       document.getElementById('walletAddress').textContent = `Connected: ${walletAddress}`;
-      sdk = new thirdweb.ThirdwebSDK("mumbai", { clientId: "YOUR_CLIENT_ID" });
-      contract = await sdk.getContract("YOUR_CONTRACT_ADDRESS");
+      sdk = new thirdweb.ThirdwebSDK("mumbai", { clientId: "05a0325af41e925b0e2ff52a16efa407" });
+      contract = await sdk.getContract("0xC52a002023ABA42B4490f625Df6434fc26E425c8");
     } catch (err) {
       alert('Error connecting wallet: ' + err.message);
     }
