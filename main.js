@@ -1,6 +1,8 @@
 import { ThirdwebSDK } from "https://esm.sh/@thirdweb-dev/sdk@4";
 import { ethers } from "https://esm.sh/ethers@6";
 
+console.log("Desert Ledger Script Loaded");
+
 const CLIENT_ID = "05a0325af41e925b0e2ff52a16efa407";
 const CONTRACT_ADDRESS = "0xC52a002023ABA42B4490f625Df6434fc26E425c8";
 
@@ -10,7 +12,23 @@ let signer;
 let sdk;
 let contract;
 
-document.getElementById('connectWallet').addEventListener('click', async () => {
+// Wait for DOMContentLoaded before hooking up listeners
+document.addEventListener('DOMContentLoaded', () => {
+  console.log("DOM fully loaded and parsed");
+
+  const connectButton = document.getElementById('connectWallet');
+  const hashButton = document.getElementById('hashFile');
+  const storeButton = document.getElementById('storeHash');
+  const loadButton = document.getElementById('loadAudit');
+
+  connectButton.addEventListener('click', connectWallet);
+  hashButton.addEventListener('click', generateHash);
+  storeButton.addEventListener('click', storeHashOnChain);
+  loadButton.addEventListener('click', loadAuditTrail);
+});
+
+async function connectWallet() {
+  console.log("Connect button clicked");
   if (typeof window.ethereum !== 'undefined') {
     try {
       provider = new ethers.BrowserProvider(window.ethereum);
@@ -22,15 +40,17 @@ document.getElementById('connectWallet').addEventListener('click', async () => {
       sdk = new ThirdwebSDK("mumbai", { clientId: CLIENT_ID });
       contract = await sdk.getContract(CONTRACT_ADDRESS);
 
+      console.log("Wallet connected, contract loaded.");
     } catch (err) {
       alert('Error connecting wallet: ' + err.message);
     }
   } else {
-    alert('MetaMask not detected.\nPlease:\n- Install MetaMask extension\n- Use a supported browser\n- Open this page from https:// not file://');
+    alert('MetaMask not detected.\nPlease:\n- Install MetaMask extension\n- Use a supported browser\n- Open this page from HTTPS.');
   }
-});
+}
 
-document.getElementById('hashFile').addEventListener('click', async () => {
+async function generateHash() {
+  console.log("Hash button clicked");
   const fileInput = document.getElementById('fileInput').files[0];
   if (!fileInput) {
     alert('Please select a file');
@@ -42,9 +62,12 @@ document.getElementById('hashFile').addEventListener('click', async () => {
   const hashArray = Array.from(new Uint8Array(hashBuffer));
   const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
   document.getElementById('hashOutput').textContent = `SHA-256: ${hashHex}`;
-});
 
-document.getElementById('storeHash').addEventListener('click', async () => {
+  console.log("Hash generated:", hashHex);
+}
+
+async function storeHashOnChain() {
+  console.log("Store button clicked");
   const hash = document.getElementById('hashOutput').textContent.replace('SHA-256: ', '');
   if (!hash) {
     alert('Please generate a hash first');
@@ -59,12 +82,15 @@ document.getElementById('storeHash').addEventListener('click', async () => {
   try {
     const tx = await contract.call("storeDocumentHash", [hash]);
     document.getElementById('txStatus').textContent = `Stored on-chain! Tx: ${tx.receipt.transactionHash}`;
+    console.log("Transaction successful:", tx.receipt.transactionHash);
   } catch (err) {
     document.getElementById('txStatus').textContent = 'Error: ' + err.message;
+    console.error("Transaction error:", err);
   }
-});
+}
 
-document.getElementById('loadAudit').addEventListener('click', async () => {
+async function loadAuditTrail() {
+  console.log("Load Audit button clicked");
   if (!contract) {
     alert('Please connect your wallet first');
     return;
@@ -76,7 +102,9 @@ document.getElementById('loadAudit').addEventListener('click', async () => {
     const stored = await contract.call("getStoredHashes");
     const list = stored.map(hash => `<li>${hash}</li>`).join('');
     document.getElementById('auditTrail').innerHTML = list || '<li>No records found.</li>';
+    console.log("Audit trail loaded:", stored);
   } catch (err) {
     document.getElementById('auditTrail').innerHTML = 'Error: ' + err.message;
+    console.error("Audit trail error:", err);
   }
-});
+}
