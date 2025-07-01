@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Desert Ledger</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/@thirdweb-dev/sdk@latest/dist/thirdweb.umd.js"></script>
+</head>
+<body>
+  <div class="container fade-in">
+    <h1>🌵 Desert Ledger</h1>
+    <p class="tagline">Arizona’s Blockchain Document Verification</p>
+
+    <button id="connectWallet" class="btn">Connect Wallet</button>
+    <div id="walletAddress" class="wallet"></div>
+
+    <hr />
+
+    <label class="file-label">
+      Select Document:
+      <input type="file" id="fileInput" />
+    </label>
+    <button id="hashFile" class="btn">Generate Hash</button>
+    <div id="hashOutput" class="hash"></div>
+
+    <button id="storeHash" class="btn">Store on Blockchain</button>
+    <div id="txStatus" class="status"></div>
+
+    <hr />
+
+    <h2>🗂️ Audit Trail</h2>
+    <button id="loadAudit" class="btn">Load Stored Hashes</button>
+    <ul id="auditTrail" class="audit"></ul>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
