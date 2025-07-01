@@ -13,7 +13,7 @@ body {
   padding: 2rem;
   border-radius: 20px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-  animation: fade-in 1.5s ease;
+  animation: fadeIn 1.5s ease;
 }
 
 h1 {
