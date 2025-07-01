@@ -1,0 +1,131 @@
+:root {
+  --sand: #EDC9AF;
+  --cactus: #4E6E58;
+  --sunset: #E76F51;
+  --sky: #2A9D8F;
+  --gold: #FFC857;
+  --dark: #264653;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(135deg, var(--sand) 0%, var(--sky) 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+  animation: fadeIn 1s ease-in-out;
+}
+
+h1, h2 {
+  text-align: center;
+  color: var(--sunset);
+  text-shadow: 1px 1px var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+p.tagline {
+  text-align: center;
+  color: var(--cactus);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  background: #ffffffee;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  animation: slideIn 0.8s ease-out;
+}
+
+button {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--sunset), var(--gold));
+  border: none;
+  border-radius: 999px;
+  padding: 0.75rem 1.5rem;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+}
+
+button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.3), rgba(255,255,255,0));
+  transition: left 0.5s;
+}
+
+button:hover::after {
+  left: 100%;
+}
+
+input[type="file"] {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border: 2px dashed var(--cactus);
+  border-radius: 12px;
+  background: #fff9f5;
+  cursor: pointer;
+  transition: border-color 0.3s;
+  width: 100%;
+}
+
+input[type="file"]:hover {
+  border-color: var(--sunset);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--sand);
+}
+
+th {
+  background-color: var(--cactus);
+  color: white;
+}
+
+tr:hover {
+  background-color: #f9f4ef;
+  transition: background-color 0.3s;
+}
+
+.fade-in {
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
