@@ -1,0 +1,83 @@
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #EDC9AF, #FFB75E);
+  color: #4E342E;
+  margin: 0;
+  padding: 2rem;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #FFF8E1;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  animation: fade-in 1.5s ease;
+}
+
+h1 {
+  text-align: center;
+  color: #D2691E;
+}
+
+.tagline {
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+.btn {
+  background: linear-gradient(135deg, #E76F51, #FFC857);
+  border: none;
+  border-radius: 999px;
+  padding: 0.75rem 1.5rem;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-top: 1rem;
+  display: block;
+  width: 100%;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.file-label {
+  display: block;
+  margin-top: 1rem;
+}
+
+.hash, .status, .wallet {
+  margin-top: 1rem;
+  word-wrap: break-word;
+  background: #FFF3E0;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+
+.audit {
+  list-style: none;
+  padding: 0;
+}
+
+.audit li {
+  background: #FFF3E0;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
