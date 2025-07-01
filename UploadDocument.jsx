@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CryptoJS from 'crypto-js';
 import { useContract, useContractWrite } from "@thirdweb-dev/react";
 
-const CONTRACT_ADDRESS = "YOUR_CONTRACT_ADDRESS"; // replace with your thirdweb contract
+const CONTRACT_ADDRESS = "0xC52a002023ABA42B4490f625Df6434fc26E425c8"; // replace with your thirdweb contract
 
 export default function UploadDocument() {
   const [file, setFile] = useState(null);
