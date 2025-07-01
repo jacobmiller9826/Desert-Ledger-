@@ -1,20 +1,32 @@
+import { ThirdwebSDK } from "https://esm.sh/@thirdweb-dev/sdk@4";
+import { ethers } from "https://esm.sh/ethers@6";
+
+const CLIENT_ID = "05a0325af41e925b0e2ff52a16efa407";
+const CONTRACT_ADDRESS = "0xC52a002023ABA42B4490f625Df6434fc26E425c8";
+
 let walletAddress = '';
+let provider;
+let signer;
 let sdk;
 let contract;
 
 document.getElementById('connectWallet').addEventListener('click', async () => {
-  if (window.ethereum) {
+  if (typeof window.ethereum !== 'undefined') {
     try {
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      walletAddress = accounts[0];
+      provider = new ethers.BrowserProvider(window.ethereum);
+      signer = await provider.getSigner();
+      walletAddress = await signer.getAddress();
+
       document.getElementById('walletAddress').textContent = `Connected: ${walletAddress}`;
-      sdk = new thirdweb.ThirdwebSDK("mumbai", { clientId: "05a0325af41e925b0e2ff52a16efa407" });
-      contract = await sdk.getContract("0xC52a002023ABA42B4490f625Df6434fc26E425c8");
+
+      sdk = new ThirdwebSDK("mumbai", { clientId: CLIENT_ID });
+      contract = await sdk.getContract(CONTRACT_ADDRESS);
+
     } catch (err) {
       alert('Error connecting wallet: ' + err.message);
     }
   } else {
-    alert('MetaMask not detected');
+    alert('MetaMask not detected.\nPlease:\n- Install MetaMask extension\n- Use a supported browser\n- Open this page from https:// not file://');
   }
 });
 
